@@ -1,137 +1,117 @@
-\documentclass[review]{elsarticle}
+% -*- mode: latex; mode: visual-line; fill-column: 9999; coding: utf-8 -*-
+%
+% For submission to 'Concurrency and Computation: Practice and Experience'
+% http://www.cc-pe.net/journalinfo/index.html 
+% 
+% ACM classifiers https://www.acm.org/publications/computing-classification-system/1998
+% D.1.3 Concurrent Programming (parallel)
+% J.2 PHYSICAL SCIENCES AND ENGINEERING
+%
 
-\usepackage{lineno,hyperref}
-\modulolinenumbers[5]
-
-\journal{Computer Physics Communications}
+\documentclass[LATO1COL]{WileyNJD-v2}
+\usepackage[numbers,super,sort&compress]{NJDnatbib}
 
 %%%%%%%%%%%%%%%%%%%%%%%
-%% Elsevier bibliography styles
+%% Wiley bibliography styles
 %%%%%%%%%%%%%%%%%%%%%%%
-%% To change the style, put a % in front of the second line of the current style and
-%% remove the % from the second line of the style you would like to use.
-%%%%%%%%%%%%%%%%%%%%%%%
+% included with AMA option
+%%\bibliographystyle{WileyNJD-AMA}
+%
+% use home-grown BST file with author-year capabilities, implementing
+% subset of AMA as in https://wol-prod-cdn.literatumonline.com/pb-assets/assets/15320634/amaguide-1509470359000.pdf
+% and derived from WileyNJD-AMA
+\bibliographystyle{WileyNJD-CCPE}
 
-%% Numbered
-%\bibliographystyle{model1-num-names}
+\makeatletter
+\renewcommand{\@biblabel}[1]{\quad#1.}
+\makeatother
 
-%% Numbered without titles
-%\bibliographystyle{model1a-num-names}
+% fix doi (not sure how to properly enable it in my bst)
+\usepackage{hyperref}
+\renewcommand{\doi}[1]{doi: \href{https://doi.org/#1}{#1}}
 
-%% Harvard
-%\bibliographystyle{model2-names.bst}\biboptions{authoryear}
-
-%% Vancouver numbered
-\usepackage{numcompress}
-\bibliographystyle{model3-num-names}
-
-%% Vancouver name/year
-%\usepackage{numcompress}\bibliographystyle{model4-names}\biboptions{authoryear}
-
-%% APA style
-%\bibliographystyle{model5-names}\biboptions{authoryear}
-
-%% AMA style
-%\usepackage{numcompress}\bibliographystyle{model6-num-names}
+%------------------------------------------------------------
 
 \input{preamble.tex}
-
 \input{commands.tex}
 
-%% `Elsevier LaTeX' style
-%\bibliographystyle{elsarticle-num}
+%------------------------------------------------------------
+
+
+\articletype{Research Article}%
+
+\received{\color{red}Added at production}
+\revised{\color{red}Added at production}
+\accepted{\color{red}Added at production}
+        
+\raggedbottom
+
 %%%%%%%%%%%%%%%%%%%%%%%
 
 \begin{document}
-\begin{frontmatter}    
 
-\title{Guidelines on Obtaining Ideal Performance for Parallel Analysis of Molecular Dynamics Trajectories with Python on HPC Resources}
+\title{Parallel Performance of Molecular Dynamics Trajectory Analysis}
 
 %% Group authors per affiliation:
-\author[ASUphysics]{Mahzad Khoshlessan}
-\ead{mkhoshle@asu.edu}
+\author[1]{Mahzad Khoshlessan}
+\author[2]{Ioannis Paraskevakos}
+\author[3]{Geoffrey C. Fox}
+\author[2]{Shantenu Jha}
+\author[1,4]{Oliver Beckstein*}
 
-\author[Rutgers]{Ioannis Paraskevakos}
-\ead{i.paraskev@rutgers.edu}
+\authormark{KHOSHLESSAN \textsc{et al}}
 
-\author[IndianaDSC]{Geoffrey C. Fox}
-\ead{gcf@indiana.edu}
+\address[1]{\orgdiv{Department of Physics}, \orgname{Arizona State University},
+  \orgaddress{Tempe, AZ 85281}, \country{USA}}
+\address[2]{\orgdiv{Department of Electrical \& Computer Engineering},
+  \orgname{Rutgers University}, \orgaddress{Piscataway, NJ 08854}, \country{USA}}
+\address[3]{\orgdiv{Digital Science Center}, \orgname{Indiana University},
+  \orgaddress{Bloomington, IN 47405}, \country{USA}}
+\address[4]{\orgdiv{Center for Biological Physics}, \orgname{Arizona State University},
+  \orgaddress{Tempe, AZ 85281}, \country{USA}}
 
-\author[Rutgers]{Shantenu Jha}
-\ead{shantenu.jha@rutgers.edu}
-
-\author[ASUphysics,ASUCBP]{Oliver Beckstein\corref{correspondingauthor}}
-\cortext[correspondingauthor]{Corresponding author}
-\ead{oliver.beckstein@asu.edu}
-
-\address[ASUphysics]{Department of Physics, Arizona State University,
-  Tempe, AZ 85281, USA}
-\address[ASUCBP]{Center for Biological Physics, Arizona State University,
-  Tempe, AZ 85281, USA}
-\address[Rutgers]{Department of Electrical \& Computer Engineering,
-  Rutgers University, Piscataway, NJ 08854, USA}
-\address[IndianaDSC]{Digital Science Center, Indiana University,
-  Bloomington, IN 47405}
-
-%\renewcommand{\shortauthors}{M. Khoshlessan et al.}
+\corres{*Oliver Beckstein, \orgdiv{Department of Physics}, \orgname{Arizona State University},
+  \orgaddress{Tempe, AZ 85281}, \country{USA}. \email{oliver.beckstein@asu.edu}}
     
 \input{abstract.tex}
 
-\begin{keyword}
-Python\sep MPI\sep HPC\sep MDAnalysis\sep Global Array\sep MPI I/O\sep Straggler\sep Molecular Dynamics
-\MSC[2010] 00-01\sep  99-00
-\end{keyword}
+\keywords{Python, MPI, HPC, MDAnalysis, MPI I/O, Global Arrays , HDF5, Straggler, Molecular Dynamics, Big Data, Trajectory Analysis}
 
-\end{frontmatter}
+\maketitle
 
-\linenumbers
 
-\section{Introduction}
 \input{introduction.tex}
-
-\section{Background \& Related Works}
 \input{background.tex}
-
-\section{Molecular Dynamics Analysis Applications}
 \input{applications.tex}
-
-\section{Benchmark Environment}
 \input{system.tex}
-
-\section{Methods}
 \input{methods.tex}
-
-\section{Performance Evaluation}
 \input{experiments.tex}
-
-\section{Performance Comparison of the RMSD task on different clusters}
 \input{clusters.tex}
-
-\section{Guidelines on the Parallel Analysis of Three Dimensional Time Series}
 \input{guideline.tex}
-
-\section{Conclusion}
 \input{conclusion.tex}
 
-\footnotesize{{\it Acknowledgements} Funding: This work was supported
-  by the National Science Foundation [grant numbers
-  1443054,1440677]. Computational resources were provided by NSF XRAC
-  awards TG-MCB090174 and TG-MCB130177.
 
-\section*{References}
 
-\bibliography{journals,becksteinlab,sp,md,stragglers-papers,Stragglers}
+\section*{Acknowledgements}
+\label{acknowledgements}
+% The \ack command is supposed to generate the Acknowledgements section but it doesn't.
+\ack
+
+
+
+We are grateful to Sarp Oral for insightful comments on this manuscript.
+This work was supported by the National Science Foundation under grant numbers ACI-1443054 and ACI-1440677.
+This work used the Extreme Science and Engineering Discovery Environment (XSEDE), which is supported by National Science Foundation grant number ACI-1548562.
+\emph{SDSC Comet} at the San Diego Supercomputer Center, \emph{LSU SuperMic} at Louisiana State University, and \emph{PSC Bridges} at the Pittsburgh Supercomputing Center were used under allocations TG-MCB090174 and TG-MCB130177.
+
+
+\bibliography{main}
 
 \clearpage
 
 \appendix
-\section{Detailed timing for splitting the trajectories}
-\input{splitting.tex}
-
-\section{Additional Data}
 \input{additional_data.tex}
-
-%\section{Python codes used for the benchmark study}
-%\input{codes.tex}
+\input{tcomm.tex}
+\input{chainreader.tex}
 
 \end{document}
